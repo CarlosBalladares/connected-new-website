@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react';
 
 /* ----- MUI  -----*/
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, Paper } from '@material-ui/core';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
 /* ----- Components  -----*/
@@ -20,6 +20,7 @@ class App extends Component {
         <Fragment>
           <CssBaseline/>
           <Header />
+          <p>Hello World</p>
         </Fragment>
       </MuiThemeProvider>
     );
