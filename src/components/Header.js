@@ -18,11 +18,17 @@ import {
 function styles(theme){
   return({
     root:{
-      flexGrow: 1
+        display: 'flex',
+        'min-width': 'min-content',
+        'justify-content': 'flex-start',
+        'font-weight': 'bold',
+    },
+    navLinks:{
+        display:'flex',
+        flex:2
     },
     flex:{
-      flex: 1,
-      margin: 10
+      margin:10,
     },
     menuButton: {
       marginLeft: -12,
@@ -31,11 +37,32 @@ function styles(theme){
   });
 }
 
+function NavLinks(props){
+     const {classes} =props;
+     const routesNavBar = Routes.map((route, index)=>(
+        <Typography 
+          variant="subheading"
+          color="inherit"
+          aria-label="Menu"
+          key={index} 
+        >
+          {route.name}
+        </Typography>
+      ));
+
+    return(
+        <div className={classes.navLinks}>
+            {routesNavBar}
+        </div>
+    );
+}
+
+
 class Header extends React.Component{
   constructor(){
       super();
       this.state={
-        openDrawer:false
+        openDrawer: false
       }
       this.toggleDrawer=this.toggleDrawer.bind(this);
   }
@@ -49,17 +76,7 @@ class Header extends React.Component{
 
   render(){
       const { classes }  = this.props;
-      const routesNavBar = Routes.map((route, index)=>(
-        <Typography 
-          variant="title"
-          color="inherit"
-          aria-label="Menu"
-          className={classes.flex} 
-        >
-          {route.name}
-        </Typography>
-      ));
-
+     
       return (
         <div className={classes.root}>
           <AppBar position="static" color="primary">
@@ -76,7 +93,7 @@ class Header extends React.Component{
               {/*<Typography variant="title"  color="inherit" className={classes.flex}>
                 {'Hello world'}
               </Typography>*/}
-              {routesNavBar}
+              <NavLinks {...this.props}/>
               <Button color="inherit">login</Button>
               
               {/*----- Drawer -----*/}

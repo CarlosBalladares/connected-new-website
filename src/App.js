@@ -6,7 +6,6 @@ import { CssBaseline, Paper } from '@material-ui/core';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
 /* ----- Components  -----*/
-//import ButtonsDemo from './components/ButtonsDemo';
 import Theme from './Theme';
 import Header from './components/Header.js';
 
