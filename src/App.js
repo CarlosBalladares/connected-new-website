@@ -10,6 +10,8 @@ import Theme from './Theme';
 import Header from './components/Header.js';
 
 
+
+
 import './App.css';
 
 class App extends Component {
@@ -19,7 +21,6 @@ class App extends Component {
         <Fragment>
           <CssBaseline/>
           <Header />
-          <p>Hello World</p>
         </Fragment>
       </MuiThemeProvider>
     );

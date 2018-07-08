@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Routes from '../routes';
+import {NavigationRoutes , SocialRoutes}from '../routes';
 
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+import DeleteIcon from '@material-ui/icons/Delete'
+import AccountIcon from 'material-ui-next-community-icons/icons/account';
 import {
   AppBar,
   Toolbar,
@@ -27,6 +29,12 @@ function styles(theme){
         display:'flex',
         flex:2
     },
+    navLink:{
+        margin:10,
+    },
+    socialLinks:{
+        display: 'flex'
+    },
     flex:{
       margin:10,
     },
@@ -39,12 +47,13 @@ function styles(theme){
 
 function NavLinks(props){
      const {classes} =props;
-     const routesNavBar = Routes.map((route, index)=>(
-        <Typography 
+     const routesNavBar = NavigationRoutes.map((route, index)=>(
+        <Typography
           variant="subheading"
           color="inherit"
           aria-label="Menu"
-          key={index} 
+          key={index}
+          className={classes.navLink}
         >
           {route.name}
         </Typography>
@@ -53,6 +62,21 @@ function NavLinks(props){
     return(
         <div className={classes.navLinks}>
             {routesNavBar}
+        </div>
+    );
+}
+
+function SocialLinks(props){
+    const {classes}=props;
+    const routesSocial=SocialRoutes.map((route, index)=>(
+        <IconButton color="inherit" key={index}>
+            <route.Icon/>
+        </IconButton>
+    ));
+
+    return (
+        <div className={classes.socialLinks}>
+            {routesSocial} 
         </div>
     );
 }
@@ -76,16 +100,16 @@ class Header extends React.Component{
 
   render(){
       const { classes }  = this.props;
-     
+
       return (
         <div className={classes.root}>
-          <AppBar position="static" color="primary">
+          <AppBar position="static" color="transparent">
             <Toolbar>
               {/*----- Menu Items -----*/}
-              <IconButton 
-                onClick={this.toggleDrawer} 
-                className={classes.menuButton} 
-                color="inherit" 
+              <IconButton
+                onClick={this.toggleDrawer}
+                className={classes.menuButton}
+                color="inherit"
                 aria-label="Menu"
               >
                 <MenuIcon/>
@@ -94,17 +118,18 @@ class Header extends React.Component{
                 {'Hello world'}
               </Typography>*/}
               <NavLinks {...this.props}/>
+              <SocialLinks {...this.props}/>
               <Button color="inherit">login</Button>
-              
+
               {/*----- Drawer -----*/}
-              <Drawer 
-                anchor="left"  
+              <Drawer
+                anchor="left"
                 open={this.state.openDrawer}
                 onClose={this.toggleDrawer}
               >
-                <Typography 
+                <Typography
                   color="inherit"
-                  variant="title" 
+                  variant="title"
                   className={classes.flex}
                 >
                   hello drawer world
