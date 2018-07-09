@@ -2,7 +2,7 @@ import Instagram from 'material-ui-next-community-icons/icons/instagram';
 import Facebook from 'material-ui-next-community-icons/icons/facebook';
 import Twitter from 'material-ui-next-community-icons/icons/twitter';
 
-
+// Actual routed components will be added. 
 
 const NavigationRoutes = [
   {path: '/releases', name:'Releases'},

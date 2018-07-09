@@ -4,8 +4,9 @@ import {NavigationRoutes , SocialRoutes}from '../routes';
 
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import DeleteIcon from '@material-ui/icons/Delete'
-import AccountIcon from 'material-ui-next-community-icons/icons/account';
+import LightLogo from '../assets/img/connected-logo.png';
+import DarkLogo from '../assets/img/connected-logo-black.png';
+
 import {
   AppBar,
   Toolbar,
@@ -27,22 +28,58 @@ function styles(theme){
     },
     navLinks:{
         display:'flex',
-        flex:2
+        flex:1
     },
     navLink:{
         margin:10,
     },
     socialLinks:{
-        display: 'flex'
+        display: 'flex',
+        'margin-right':28,
     },
     flex:{
       margin:10,
     },
     menuButton: {
-      marginLeft: -12,
-      marginRight: 20,
+
     },
+    logo:{
+        //'min-width': 'min-content',
+        'text-transform':'capitalize',
+    },
+
+    mobileMenuRoot:{
+      display: 'flex',
+      flex:1
+    },
+    logoText:{
+        'margin-right':12
+    },
+    logoMobile:{
+        flex:1
+    }
   });
+}
+
+function Logo(props){
+    const {classes}= props;
+    return(
+        <Button className={classes.logo} color="inherit">
+            <img
+                src={LightLogo}
+                alt="logo"
+                width="50"
+                height="50"
+            />
+            <Typography
+                color="inherit"
+                variant="subheading"
+                className={classes.logoText}
+            >
+                Connected
+            </Typography>
+        </Button>
+    );
 }
 
 function NavLinks(props){
@@ -76,11 +113,52 @@ function SocialLinks(props){
 
     return (
         <div className={classes.socialLinks}>
-            {routesSocial} 
+            {routesSocial}
         </div>
     );
 }
 
+function MobileMenu(props){
+    const {classes}=props;
+    return(
+        <div className={classes.mobileMenuRoot}>
+            <IconButton
+                onClick={props.toggleDrawer}
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="Menu"
+              >
+                <MenuIcon/>
+            </IconButton>
+            <Button className={classes.mobileLogo} color="inherit">
+              <img
+                src={LightLogo}
+                alt="logo"
+                width="30"
+                height="30"
+              />
+            </Button>
+
+            <Drawer
+            anchor="left"
+            open={props.openDrawer}
+            onClose={props.toggleDrawer}
+            >
+             <Typography
+              color="inherit"
+              variant="title"
+              className={classes.flex}
+             >
+              hello drawer world s
+            </Typography>
+
+            <NavLinks {...props} />
+
+          </Drawer>
+
+        </div>
+    );
+}
 
 class Header extends React.Component{
   constructor(){
@@ -96,6 +174,7 @@ class Header extends React.Component{
     this.setState({
         openDrawer: !openDrawer
     });
+    console.log('drawer opened');
   }
 
   render(){
@@ -103,39 +182,53 @@ class Header extends React.Component{
 
       return (
         <div className={classes.root}>
-          <AppBar position="static" color="transparent">
+          <AppBar position="static" color="primary">
             <Toolbar>
               {/*----- Menu Items -----*/}
+             <Hidden smDown>
+                <Logo {...this.props} />
+                <NavLinks {...this.props} />
+                <SocialLinks {...this.props} />
+              </Hidden>
+              {/*<Button color="inherit">login</Button>*/}
+              <Hidden mdUp>
               <IconButton
-                onClick={this.toggleDrawer}
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="Menu"
-              >
-                <MenuIcon/>
+                  onClick={this.toggleDrawer}
+                  className={classes.menuButton}
+                  color="inherit"
+                  aria-label="Menu"
+                >
+                  <MenuIcon/>
               </IconButton>
-              {/*<Typography variant="title"  color="inherit" className={classes.flex}>
-                {'Hello world'}
-              </Typography>*/}
-              <NavLinks {...this.props}/>
-              <SocialLinks {...this.props}/>
-              <Button color="inherit">login</Button>
+              <Button className={classes.logoMobile} color="inherit">
+                <img
+                  src={LightLogo}
+                  alt="logo"
+                  width="50"
+                  height="50"
+                />
+              </Button>
+
+              <Drawer
+              anchor="left"
+              open={this.state.openDrawer}
+              onClose={this.toggleDrawer}
+              >
+               <Typography
+                color="inherit"
+                variant="title"
+                className={classes.flex}
+               >
+                hello drawer world s
+              </Typography>
+
+              <NavLinks {...this.props} />
+              <SocialLinks {...this.props} />
+            </Drawer>
+              </Hidden>
 
               {/*----- Drawer -----*/}
-              <Drawer
-                anchor="left"
-                open={this.state.openDrawer}
-                onClose={this.toggleDrawer}
-              >
-                <Typography
-                  color="inherit"
-                  variant="title"
-                  className={classes.flex}
-                >
-                  hello drawer world
-                </Typography>
-              </Drawer>
-            </Toolbar>
+           </Toolbar>
           </AppBar>
         </div>
       );
