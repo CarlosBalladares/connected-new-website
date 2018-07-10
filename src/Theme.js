@@ -38,7 +38,9 @@ const Theme = createMuiTheme({
 
     typography:{
       main:   '#ffffff'
-    }
+    },
+
+
   }
 });
 

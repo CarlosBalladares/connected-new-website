@@ -8,6 +8,12 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 /* ----- Components  -----*/
 import Theme from './Theme';
 import Header from './components/Header.js';
+import Highlight from './components/Highlight.js';
+
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+
 
 import 'typeface-roboto';
 
@@ -23,6 +29,7 @@ class App extends Component {
         <Fragment>
           <CssBaseline/>
           <Header />
+          <Highlight />
         </Fragment>
       </MuiThemeProvider>
     );

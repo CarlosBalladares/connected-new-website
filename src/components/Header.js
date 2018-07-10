@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment}from 'react';
 import PropTypes from 'prop-types';
 import {NavigationRoutes , SocialRoutes}from '../routes';
 
@@ -7,6 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import LightLogo from '../assets/img/connected-logo.png';
 import DarkLogo from '../assets/img/connected-logo-black.png';
 
+
 import {
   AppBar,
   Toolbar,
@@ -14,38 +15,61 @@ import {
   Button,
   IconButton,
   Drawer,
-  Hidden
+  Hidden,
+  SwipeableDrawer,
+  List,
+  ListItem,
+  Divider
 } from '@material-ui/core'
+
+const LogoSrc = LightLogo;
+
 
 
 function styles(theme){
+  const {palette}=theme;
+  console.log(palette.primary.main)
   return({
     root:{
         display: 'flex',
         'min-width': 'min-content',
         'justify-content': 'flex-start',
         'font-weight': 'bold',
+        backgroundColor: 'transparent',
+        'padding-top':10,
+
     },
     navLinks:{
         display:'flex',
-        flex:1
+        flex:1,
+        padding:0
     },
     navLink:{
-        margin:10,
+        'text-transform':'capitalize',
+        'color':'white',
+        height: 'inherit'
     },
     socialLinks:{
         display: 'flex',
         'margin-right':28,
+        'color':'white',
     },
     flex:{
       margin:10,
     },
     menuButton: {
-
+      position:'absolute',
+      'z-index':1103,
+      'color':'white',
     },
     logo:{
         //'min-width': 'min-content',
+        'color':'white',
         'text-transform':'capitalize',
+        '&:hover': {
+        //you want this to be the same as the backgroundColor above
+          backgroundColor:'transparent'
+        }
     },
 
     mobileMenuRoot:{
@@ -56,7 +80,12 @@ function styles(theme){
         'margin-right':12
     },
     logoMobile:{
-        flex:1
+        flex:1,
+
+        '&:hover': {
+        //you want this to be the same as the backgroundColor above
+          backgroundColor : 'transparent',
+        }
     }
   });
 }
@@ -64,9 +93,9 @@ function styles(theme){
 function Logo(props){
     const {classes}= props;
     return(
-        <Button className={classes.logo} color="inherit">
+        <Button className={classes.logo} color="inherit" disableRipple >
             <img
-                src={LightLogo}
+                src={LogoSrc}
                 alt="logo"
                 width="50"
                 height="50"
@@ -76,37 +105,47 @@ function Logo(props){
                 variant="subheading"
                 className={classes.logoText}
             >
-                Connected
+                BrandName
             </Typography>
         </Button>
     );
 }
 
 function NavLinks(props){
+
      const {classes} =props;
      const routesNavBar = NavigationRoutes.map((route, index)=>(
+        <Fragment>
+        <Button
+
+          className={classes.navLink}
+        >
         <Typography
           variant="subheading"
           color="inherit"
           aria-label="Menu"
           key={index}
-          className={classes.navLink}
+
         >
           {route.name}
         </Typography>
+        </Button>
+        <Divider/>
+        </Fragment>
+
       ));
 
     return(
-        <div className={classes.navLinks}>
+        <List className={classes.navLinks}>
             {routesNavBar}
-        </div>
+        </List>
     );
 }
 
 function SocialLinks(props){
     const {classes}=props;
     const routesSocial=SocialRoutes.map((route, index)=>(
-        <IconButton color="inherit" key={index}>
+        <IconButton  color="inherit" key={index}>
             <route.Icon/>
         </IconButton>
     ));
@@ -118,47 +157,50 @@ function SocialLinks(props){
     );
 }
 
-function MobileMenu(props){
-    const {classes}=props;
-    return(
-        <div className={classes.mobileMenuRoot}>
-            <IconButton
-                onClick={props.toggleDrawer}
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="Menu"
-              >
-                <MenuIcon/>
-            </IconButton>
-            <Button className={classes.mobileLogo} color="inherit">
-              <img
-                src={LightLogo}
-                alt="logo"
-                width="30"
-                height="30"
-              />
-            </Button>
+function DrawerLinks(props){
+  const { classes }  = props;
+  return(
+    <SwipeableDrawer
+      anchor="left"
+      open={props.openDrawer}
+      onClose={props.toggleDrawer}
+      onOpen={props.toggleDrawer}
 
-            <Drawer
-            anchor="left"
-            open={props.openDrawer}
-            onClose={props.toggleDrawer}
-            >
-             <Typography
-              color="inherit"
-              variant="title"
-              className={classes.flex}
-             >
-              hello drawer world s
+      disableDiscovery
+    >
+    <List style={{'padding':10}} >
+      {NavigationRoutes.map((route, i)=>(
+          <ListItem
+            button
+            disableRipple
+          >
+            <route.Icon style={{'margin-right':10}}/>
+            <Typography >
+            {route.name}
             </Typography>
+          </ListItem>
+      ))}
+      <Divider component={()=>'ff'}></Divider>
 
-            <NavLinks {...props} />
+      {SocialRoutes.map((route, i)=>(
+          <ListItem
+            button
+            style={{'margin-right':10}}
+            disableRipple
 
-          </Drawer>
-
-        </div>
-    );
+          >
+            <route.Icon style={{'margin-right':10}}/>
+            <Typography color="inherit">
+            {route.name}
+            </Typography>
+          </ListItem>
+      ))}
+    </List>
+    </SwipeableDrawer>
+  );
 }
+
+
 
 class Header extends React.Component{
   constructor(){
@@ -181,10 +223,11 @@ class Header extends React.Component{
       const { classes }  = this.props;
 
       return (
-        <div className={classes.root}>
-          <AppBar position="static" color="primary">
-            <Toolbar>
-              {/*----- Menu Items -----*/}
+        <Fragment>
+        <div>
+          <AppBar position="absolute" color="black" className={classes.root} elevation={0}>
+            <Toolbar >
+              {/*----- Desktop Items -----*/}
              <Hidden smDown>
                 <Logo {...this.props} />
                 <NavLinks {...this.props} />
@@ -192,45 +235,42 @@ class Header extends React.Component{
               </Hidden>
               {/*<Button color="inherit">login</Button>*/}
               <Hidden mdUp>
-              <IconButton
-                  onClick={this.toggleDrawer}
-                  className={classes.menuButton}
+                <IconButton
+                    onClick={this.toggleDrawer}
+                    className={classes.menuButton}
+                    aria-label="Menu"
+                    variant="text"
+                  >
+                    <MenuIcon/>
+                </IconButton>
+                <Button
+                  className={classes.logoMobile}
                   color="inherit"
-                  aria-label="Menu"
+                  disableRipple
                 >
-                  <MenuIcon/>
-              </IconButton>
-              <Button className={classes.logoMobile} color="inherit">
-                <img
-                  src={LightLogo}
-                  alt="logo"
-                  width="50"
-                  height="50"
-                />
-              </Button>
+                  <img
+                    src={LogoSrc}
+                    alt="logo"
+                    width="50"
+                    height="50"
+                  />
+                </Button>
 
-              <Drawer
-              anchor="left"
-              open={this.state.openDrawer}
-              onClose={this.toggleDrawer}
-              >
-               <Typography
-                color="inherit"
-                variant="title"
-                className={classes.flex}
-               >
-                hello drawer world s
-              </Typography>
 
-              <NavLinks {...this.props} />
-              <SocialLinks {...this.props} />
-            </Drawer>
               </Hidden>
 
               {/*----- Drawer -----*/}
            </Toolbar>
           </AppBar>
+
+        <DrawerLinks
+          toggleDrawer={this.toggleDrawer}
+          openDrawer={this.state.openDrawer}
+          {...this.props}
+        />
         </div>
+
+        </Fragment>
       );
   }
 }
