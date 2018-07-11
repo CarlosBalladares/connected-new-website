@@ -105,7 +105,7 @@ function Logo(props){
                 variant="subheading"
                 className={classes.logoText}
             >
-                BrandName
+                Connected
             </Typography>
         </Button>
     );

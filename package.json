@@ -8,6 +8,7 @@
     "material-ui-next-community-icons": "^1.0.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-iframe": "^1.2.0",
     "react-scripts": "1.1.4",
     "typeface-roboto": "0.0.54"
   },

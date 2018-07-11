@@ -10,6 +10,9 @@ import { Button, Welcome } from '@storybook/react/demo';
 import Logo from '../components/Logo';
 import SimpleList from '../components/listDemo';
 
+import Header from '../components/Header'
+import Highlight from '../components/Highlight'
+
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -26,3 +29,10 @@ storiesOf('Navigation', module)
   .add('Logo', ()=><Logo />)
   .add('SL', ()=><SimpleList />)
   .addDecorator(withKnobs);
+
+storiesOf('Navbar', module)
+  .add('navbar', ()=><div style={{backgroundColor:'black'}}><Header/></div>);
+
+
+storiesOf('Content', module)
+  .add('Highlight', ()=><Highlight/>);
