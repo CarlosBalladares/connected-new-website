@@ -4,8 +4,9 @@ import Background from '../assets/img/background1.png';
 import SimpleList from './listDemo';
 import {withStyles} from '@material-ui/core/styles/'
 import {Card , CardContent, Typography, CardMedia, Button, List, ListItem} from '@material-ui/core';
-import SampleArtwork from '../assets/img/shika.png';
-import SampleArtworkBlur from '../assets/img/shikablur.png';
+import SampleArtwork from '../assets/img/fd.png';
+import ShikaBlur from '../assets/img/shikablur.png';
+import FDBlur from '../assets/img/fdblur.png';
 import Iframe from 'react-iframe';
 import Soundcloud from 'material-ui-next-community-icons/icons/soundcloud';
 import Facebook from 'material-ui-next-community-icons/icons/facebook';
@@ -14,7 +15,7 @@ import Twitter from 'material-ui-next-community-icons/icons/twitter';
 import Instagram from 'material-ui-next-community-icons/icons/instagram';
 import Discord from '../assets/svg/discord';
 
-
+const SampleArtworkBlur = (false)?ShikaBlur : FDBlur;
 
 function styles(theme){
     return {
@@ -25,30 +26,31 @@ function styles(theme){
       card:{
         display: 'flex',
         'flex-wrap':'wrap',
+        width:'100%',
         color:'white',
-        padding:50,
+        padding:100,
         'align-items': 'center',
-        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.5) 100%), url(${SampleArtworkBlur})`,
         backgroundPosition: 'center',
-        backgroundColor:'transparent'
-        
+        backgroundColor:'transparent',
+        'backgroundImage': `linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.5) 100%), url(${FDBlur})`,
+        'backgroundSize': '100%'
       },
       artwork:{
         'width':350,
         'height':350,
         'border-radius':2,
         'margin-left':24,
-        'margin-right':24
+        'margin-right':24,
       },
       details:{
-        flex:1
+        flex:1,
       },
       scEmbedContainer:{
         'margin-top':10,
         'margin-bottom':10
       },
-      scEmbed:{
-        'display':'flex',
+      scEmbedd:{
+        'display':'flddex',
       },
       socialbutton:{
         'text-transform':'lowercase',
@@ -73,14 +75,14 @@ class HighLight extends React.Component{
   constructor(){
     super();
     this.state={
-      title: 'Shika',
-      artist: 'ARSNL',
-      message: 'ARSNL delivers another high quality release.Through connected sounds. Make sure to support him',
-      soundcloud: 'imarsnl',
+      title: 'Falling Down',
+      artist: 'Emplexx',
+      message: 'Emplexx delivers high quality 8-bar complextro straight out of 2010.',
+      soundcloud: 'emplexx',
       scEmbed: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/323954507&color=%239c908c&inverse=true&auto_play=false&show_user=true',
-      youtube: 'link',
-      twitter:  'arsnl_ftw',
-      instagram: 'imarsnl',
+      youtube: '',
+      twitter:  'emplexx',
+      instagram: 'emplexxofficial',
       artwork: SampleArtwork
     } 
   }
@@ -117,7 +119,6 @@ class HighLight extends React.Component{
                 width=""
                 height="20dp"
                 position="relative"
-                styles={classes.scEmbed}
                 display="inline"
                 margin="30"
                 marginwidth="100"
