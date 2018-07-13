@@ -30,6 +30,7 @@ class App extends Component {
           <CssBaseline/>
           <Header />
           <Highlight />
+
         </Fragment>
       </MuiThemeProvider>
     );

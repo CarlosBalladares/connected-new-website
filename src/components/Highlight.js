@@ -3,7 +3,16 @@ import Parallax from './Parallax/Parallax';
 import Background from '../assets/img/background1.png';
 import SimpleList from './listDemo';
 import {withStyles} from '@material-ui/core/styles/'
-import {Card , CardContent, Typography, CardMedia, Button, List, ListItem} from '@material-ui/core';
+import {
+  Card, 
+  CardContent, 
+  Typography, 
+  CardMedia, 
+  Button, 
+  List, 
+  ListItem,
+  Hidden
+} from '@material-ui/core';
 import SampleArtwork from '../assets/img/fd.png';
 import ShikaBlur from '../assets/img/shikablur.png';
 import FDBlur from '../assets/img/fdblur.png';
@@ -32,8 +41,9 @@ function styles(theme){
         'align-items': 'center',
         backgroundPosition: 'center',
         backgroundColor:'transparent',
-        'backgroundImage': `linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.5) 100%), url(${FDBlur})`,
-        'backgroundSize': '100%'
+      // 'backgroundImage': `linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.5) 100%), url(${FDBlur})`,
+        'backgroundSize': 'cover',
+        boxShadow:'none'
       },
       artwork:{
         'width':350,
@@ -50,7 +60,7 @@ function styles(theme){
         'margin-bottom':10
       },
       scEmbedd:{
-        'display':'flddex',
+        'display':'flex',
       },
       socialbutton:{
         'text-transform':'lowercase',
@@ -67,7 +77,8 @@ function styles(theme){
         'flexDirection':'row',
         'padding': 0,
         'justify-content':'left'
-      }
+      },
+      
     };
 }
 
@@ -168,7 +179,9 @@ class HighLight extends React.Component{
 
            </List>
           </CardContent>
-          <CardMedia image={this.state.artwork} className={classes.artwork}/>
+          <Hidden smDown>
+            <CardMedia image={this.state.artwork} className={classes.artwork}/>
+          </Hidden>
         </Card>
 
       </Parallax> 
