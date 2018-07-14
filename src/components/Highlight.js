@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Parallax from './Parallax/Parallax';
 import Background from '../assets/img/background1.png';
 import SimpleList from './listDemo';
@@ -16,6 +16,8 @@ import {
 import SampleArtwork from '../assets/img/fd.png';
 import ShikaBlur from '../assets/img/shikablur.png';
 import FDBlur from '../assets/img/fdblur.png';
+import EchoBlur from '../assets/img/EchoBlur.jpg';
+
 import Iframe from 'react-iframe';
 import Soundcloud from 'material-ui-next-community-icons/icons/soundcloud';
 import Facebook from 'material-ui-next-community-icons/icons/facebook';
@@ -23,27 +25,36 @@ import Facebook from 'material-ui-next-community-icons/icons/facebook';
 import Twitter from 'material-ui-next-community-icons/icons/twitter';
 import Instagram from 'material-ui-next-community-icons/icons/instagram';
 import Discord from '../assets/svg/discord';
+import {Link,Redirect} from 'react-router-dom';
+
+import injectSheet from 'react-jss'
+
 
 const SampleArtworkBlur = (false)?ShikaBlur : FDBlur;
 
-function styles(theme){
-    return {
+
+
+
+const styles= {  
       root: {
         'justify-content': 'center',
         'align-items': 'center',
+        display:'flex',
+        'flex-direction': 'column',
+        paddingTop:100
       },
       card:{
         display: 'flex',
         'flex-wrap':'wrap',
-        width:'100%',
         color:'white',
         padding:100,
-        'align-items': 'center',
         backgroundPosition: 'center',
         backgroundColor:'transparent',
-      // 'backgroundImage': `linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.5) 100%), url(${FDBlur})`,
-        'backgroundSize': 'cover',
-        boxShadow:'none'
+       'backgroundImage': `linear-gradient(to bottom, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.3) 100%), url(${EchoBlur})`,
+      'backgroundSize': 'cover',
+        
+        boxShadow:'none',
+        margin:50
       },
       artwork:{
         'width':350,
@@ -77,15 +88,16 @@ function styles(theme){
         'flexDirection':'row',
         'padding': 0,
         'justify-content':'left'
-      },
+      }
       
-    };
-}
+    }
+
 
 class HighLight extends React.Component{
+
   constructor(){
     super();
-    this.state={
+/**    this.props={
       title: 'Falling Down',
       artist: 'Emplexx',
       message: 'Emplexx delivers high quality 8-bar complextro straight out of 2010.',
@@ -95,16 +107,36 @@ class HighLight extends React.Component{
       twitter:  'emplexx',
       instagram: 'emplexxofficial',
       artwork: SampleArtwork
-    } 
+    } **/
+
+    this.handleSoundcloudLink = this.handleSoundcloudLink.bind(this);
+  }
+
+  handleSoundcloudLink(e){
+      ///e.preventDefault();
+      console.dir(e.target);
+    
   }
 
   render(){
     const {classes}= this.props;
+    const {Releases}=this.props;
+    const style ={
+      backgroundImage:`${this.props.artwork}`,
+      backgroundSize: 'cover',
+
+    }
+
+
 
     return (
-      <Parallax  image={Background} className ={classes.root}>
-        <Card className={classes.card}>
+      <Fragment>
+      {Releases.map((Release, index) =>
+      <div style={{position:'relative'}}>
+        <Card className={classes.card} classes={{root : classes.card }} key={index} style={style}>
           <CardContent className={classes.details}>
+
+            {Release.latest?
             <Typography 
               color="inherit" 
               variant="display1"
@@ -112,21 +144,22 @@ class HighLight extends React.Component{
             >
               Latest Release 
             </Typography>
+            :""}
             <Typography 
               color="inherit" 
               variant="display2"
               gutterBottom  
             >
-             {`${this.state.artist} - ${this.state.title}`}
+             {`${Release.artist} - ${Release.title}`}
             </Typography>
             <Typography color="inherit" gutterBottom>
-              {this.state.message}
+              {Release.message}
             </Typography>
             
             <div className={classes.scEmbedContainer} >
 
               <Iframe
-                url={this.state.scEmbed}
+                url={Release.scEmbed}
                 width=""
                 height="20dp"
                 position="relative"
@@ -142,19 +175,19 @@ class HighLight extends React.Component{
 
             <List disablePadding className={classes.socialbuttons}> 
               <ListItem disableGutters>
-                <Button color="inherit" className={classes.socialbutton}>
-                  <Soundcloud/>
-                    <Typography color="inherit">
-                      {this.state.soundcloud}
+                <Button  color="inherit" href={`https://www.soundcloud.com/${Release.soundcloud}`}  className={classes.socialbutton} onClick={this.handleSoundcloudLink}>
+                  <Soundcloud type="submit" name={`${Release.soundcloud}`} />
+                    <Typography color="inherit" name={`${Release.soundcloud}`} >
+                      {Release.soundcloud}
                     </Typography>
                 </Button>
               </ListItem>
 
               <ListItem disableGutters>
-                <Button color="inherit" className={classes.socialbutton}>
+                <Button color="inherit" className={classes.socialbutton} href={`https://www.twitter.com/${Release.twitter}`}>
                   <Twitter/>
                     <Typography color="inherit">
-                      {this.state.twitter}
+                      {Release.twitter}
                     </Typography>
                 </Button>
               </ListItem>
@@ -163,7 +196,7 @@ class HighLight extends React.Component{
                 <Button color="inherit" className={classes.socialbutton}>
                   <Instagram/>
                     <Typography color="inherit">
-                      {this.state.instagram}
+                      {Release.instagram}
                     </Typography>
                 </Button>
               </ListItem>
@@ -179,12 +212,15 @@ class HighLight extends React.Component{
 
            </List>
           </CardContent>
-          <Hidden smDown>
-            <CardMedia image={this.state.artwork} className={classes.artwork}/>
+          <Hidden mdDown>
+            <CardMedia image={Release.artwork} className={classes.artwork}/>
           </Hidden>
         </Card>
+      </div >
 
-      </Parallax> 
+      )}
+    </Fragment>
+
     );
   }
 }

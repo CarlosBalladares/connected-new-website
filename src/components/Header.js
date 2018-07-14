@@ -145,7 +145,7 @@ function NavLinks(props){
 function SocialLinks(props){
     const {classes}=props;
     const routesSocial=SocialRoutes.map((route, index)=>(
-        <IconButton  color="inherit" key={index}>
+        <IconButton href={route.path}  color="inherit" key={index}>
             <route.Icon/>
         </IconButton>
     ));
@@ -170,6 +170,7 @@ function DrawerLinks(props){
     >
     <List style={{'padding':10}} >
       {NavigationRoutes.map((route, i)=>(
+          
           <ListItem
             button
             disableRipple
@@ -180,13 +181,14 @@ function DrawerLinks(props){
             </Typography>
           </ListItem>
       ))}
-      <Divider component={()=>'ff'}></Divider>
+      <Divider component={()=><hr/>}></Divider>
 
       {SocialRoutes.map((route, i)=>(
           <ListItem
             button
             style={{'margin-right':10}}
-            disableRipple
+            href={route.path}
+            component="a"
 
           >
             <route.Icon style={{'margin-right':10}}/>
