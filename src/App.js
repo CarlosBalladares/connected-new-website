@@ -10,6 +10,8 @@ import Theme from './Theme';
 import Header from './components/Header.js';
 import Highlight from './components/Highlight.js';
 
+import Test from './components/Test';
+
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -28,9 +30,9 @@ class App extends Component {
       <MuiThemeProvider theme={Theme}>
         <Fragment>
           <CssBaseline/>
+          {/*<Test theme={Theme} />*/}
           <Header />
           <Highlight />
-
         </Fragment>
       </MuiThemeProvider>
     );
