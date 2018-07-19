@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import SampleArtwork from '../assets/img/fd.png';
 import ShikaBlur from '../assets/img/shikablur.png';
-import FDBlur from '../assets/img/fdblur.png';
+import FDBlur from '../assets/img/FDBlur2.png';
 import Iframe from 'react-iframe';
 import Soundcloud from 'material-ui-next-community-icons/icons/soundcloud';
 import Facebook from 'material-ui-next-community-icons/icons/facebook';
@@ -23,37 +23,55 @@ import Facebook from 'material-ui-next-community-icons/icons/facebook';
 import Twitter from 'material-ui-next-community-icons/icons/twitter';
 import Instagram from 'material-ui-next-community-icons/icons/instagram';
 import Discord from '../assets/svg/discord';
+import Image from 'material-ui-image';
 
 const SampleArtworkBlur = (false)?ShikaBlur : FDBlur;
 
 function styles(theme){
     return {
+      parallax:{
+        'justify-content': 'left',
+        'align-items' : 'center',
+        'padding-top':50,
+        //'padding-bottom':50,
+      },
       root: {
-        'justify-content': 'center',
-        'align-items': 'center',
+        display: 'flex',
+       'flex-direction': 'row',
+        'flex-wrap':'wrap',
+       'justify-content':'center', 
+       //'backgroundImage': `linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.5) 100%), url(${FDBlur})`,
+       // backgroundPosition: 'center',
+        //'backgroundSize': 'cover',
+        //'width':'100%'
       },
       card:{
-        display: 'flex',
-        'flex-wrap':'wrap',
         width:'100%',
         color:'white',
         padding:100,
         'align-items': 'center',
         backgroundPosition: 'center',
         backgroundColor:'transparent',
-      // 'backgroundImage': `linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.5) 100%), url(${FDBlur})`,
         'backgroundSize': 'cover',
-        boxShadow:'none'
+        boxShadow:'none',
+        flex:1,
+        'min-width':300
       },
       artwork:{
-        'width':350,
-        'height':350,
         'border-radius':2,
         'margin-left':24,
         'margin-right':24,
+        'min-width':300,
+        'display':'flex',
+        'flex-direction':'column',
+        'justify-content':'center',
+        flex:0,
+        '& img':{
+          width:'100%',
+        
+        }
       },
       details:{
-        flex:1,
       },
       scEmbedContainer:{
         'margin-top':10,
@@ -70,15 +88,18 @@ function styles(theme){
 
         '& *':{
           'margin-right':5
-        }
+        },
+        flex:1,
+        'min-width': 'fit-content'
       },
       socialbuttons:{
         'display':'flex',
-        'flexDirection':'row',
+        'row':'wrap',
         'padding': 0,
-        'justify-content':'left'
+        'justify-content': 'left',
+        'flex-wrap':'wrap'
       },
-      
+       
     };
 }
 
@@ -102,9 +123,9 @@ class HighLight extends React.Component{
     const {classes}= this.props;
 
     return (
-      <Parallax  image={Background} className ={classes.root}>
-        <Card className={classes.card}>
-          <CardContent className={classes.details}>
+      <Parallax image={FDBlur} className={classes.parallax}>
+      <div className={classes.root}>
+        <div className={classes.card}>
             <Typography 
               color="inherit" 
               variant="display1"
@@ -122,7 +143,8 @@ class HighLight extends React.Component{
             <Typography color="inherit" gutterBottom>
               {this.state.message}
             </Typography>
-            
+            <br />
+
             <div className={classes.scEmbedContainer} >
 
               <Iframe
@@ -140,50 +162,42 @@ class HighLight extends React.Component{
               {'Social media:'}
             </Typography>
 
-            <List disablePadding className={classes.socialbuttons}> 
-              <ListItem disableGutters>
+            <div disablePadding className={classes.socialbuttons}> 
                 <Button color="inherit" className={classes.socialbutton}>
                   <Soundcloud/>
                     <Typography color="inherit">
                       {this.state.soundcloud}
                     </Typography>
                 </Button>
-              </ListItem>
 
-              <ListItem disableGutters>
                 <Button color="inherit" className={classes.socialbutton}>
                   <Twitter/>
                     <Typography color="inherit">
                       {this.state.twitter}
                     </Typography>
                 </Button>
-              </ListItem>
 
-              <ListItem disableGutters>
                 <Button color="inherit" className={classes.socialbutton}>
                   <Instagram/>
                     <Typography color="inherit">
                       {this.state.instagram}
                     </Typography>
                 </Button>
-              </ListItem>
 
-             <ListItem disableGutters>
                 <Button color="inherit" className={classes.socialbutton}>
                   <Discord/>
                     <Typography color="inherit">
                       {'Discord'}
                     </Typography>
                 </Button>
-              </ListItem>
 
-           </List>
-          </CardContent>
-          <Hidden smDown>
-            <CardMedia image={this.state.artwork} className={classes.artwork}/>
-          </Hidden>
-        </Card>
+           </div>
 
+        </div>
+        <div className={classes.artwork}>
+          <img src={this.state.artwork}/>
+        </div>
+        </div>
       </Parallax> 
     );
   }

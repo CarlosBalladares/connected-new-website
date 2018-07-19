@@ -9,6 +9,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import Theme from './Theme';
 import Header from './components/Header.js';
 import Highlight from './components/Highlight.js';
+import Recent from './components/Recent';
 
 import Test from './components/Test';
 
@@ -33,6 +34,7 @@ class App extends Component {
           {/*<Test theme={Theme} />*/}
           <Header />
           <Highlight />
+          <Recent />
         </Fragment>
       </MuiThemeProvider>
     );
