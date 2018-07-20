@@ -33,8 +33,10 @@ class App extends Component {
           <CssBaseline/>
           {/*<Test theme={Theme} />*/}
           <Header />
-          <Highlight />
-          <Recent />
+          <div style={{display: 'flex', 'flex-direction':'column', 'height': 2000}}>
+            <Highlight/>
+            <Recent />
+          </div>
         </Fragment>
       </MuiThemeProvider>
     );
