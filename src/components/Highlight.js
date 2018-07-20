@@ -36,6 +36,7 @@ function styles(theme){
         'flex-wrap':'wrap',
         'justify-content':'center',
         'padding':100,
+        'margin-top':20,
        //'backgroundImage': `linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.5) 100%), url(${FDBlur})`,
        // backgroundPosition: 'center',
         //'backgroundSize': 'cover',
@@ -179,7 +180,6 @@ class HighLight extends React.Component{
         strength={this.parallaxEnabled()? screenDimensions.height*0.6:0} 
         className={classes.parallax} 
         disabled={!this.parallaxEnabled()}
-        bgClassName={'image123'}
         ref={(node) => { this.parallax = node; }}
       >
       <div className={classes.root}>

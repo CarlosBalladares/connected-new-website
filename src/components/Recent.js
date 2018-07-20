@@ -31,7 +31,7 @@ function Recent(props){
       >
         Recent
       </Typography>
-      <img src={FDBlur} />
+      
        
       </Card>
   );
