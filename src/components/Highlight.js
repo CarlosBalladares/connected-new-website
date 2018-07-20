@@ -1,17 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Parallax, Background} from 'react-parallax';
+import {Parallax} from 'react-parallax';
 import BackgroundImage from '../assets/img/clouds.gif';
-import SimpleList from './listDemo';
 import {withStyles} from '@material-ui/core/styles/'
 import {
-  Card, 
-  CardContent, 
   Typography, 
-  CardMedia, 
   Button, 
-  List, 
-  ListItem,
   Hidden
 } from '@material-ui/core';
 import SampleArtwork from '../assets/img/fd.png';
@@ -19,7 +12,7 @@ import ShikaBlur from '../assets/img/shikablur.png';
 import FDBlur from '../assets/img/FDBlur2.png';
 import Iframe from 'react-iframe';
 import Soundcloud from 'material-ui-next-community-icons/icons/soundcloud';
-import Facebook from 'material-ui-next-community-icons/icons/facebook';
+// import Facebook from 'material-ui-next-community-icons/icons/facebook';
 //import Youtube from 'material-ui-next-community-icons/icons/youtube';
 import Twitter from 'material-ui-next-community-icons/icons/twitter';
 import Instagram from 'material-ui-next-community-icons/icons/instagram';
@@ -183,15 +176,12 @@ class HighLight extends React.Component{
     return (
       <Parallax 
         bgImage={BackgroundImage} 
-        strength={this.parallaxEnabled()? 500:0} 
+        strength={this.parallaxEnabled()? screenDimensions.height*0.6:0} 
         className={classes.parallax} 
         disabled={!this.parallaxEnabled()}
-        log={true}
-        bcClassName={'image123'}
+        bgClassName={'image123'}
         ref={(node) => { this.parallax = node; }}
       >
-       
-
       <div className={classes.root}>
         <div className={classes.card}>
             <Typography 
@@ -266,17 +256,13 @@ class HighLight extends React.Component{
                     </Typography>
                   </Hidden>
                 </Button>
-
-           </div>
-
-        </div>
+            </div>
+          </div>
 
           <div className={classes.artwork}>
             <Image color="black" src={trackData.artwork} style={{display:'inline'}}/>
           </div>
         </div>
-        
-
       </Parallax> 
     );
   }
