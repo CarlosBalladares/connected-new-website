@@ -1,6 +1,8 @@
 import React from 'react';
 import {Parallax} from 'react-parallax';
 import BackgroundImage from '../assets/img/clouds.gif';
+import BGSmoke from '../assets/img/giphy.gif';
+import BGORIG from '../assets/img/background1.png';
 import {withStyles} from '@material-ui/core/styles/'
 import {
   Typography, 
@@ -18,6 +20,10 @@ import Twitter from 'material-ui-next-community-icons/icons/twitter';
 import Instagram from 'material-ui-next-community-icons/icons/instagram';
 import Discord from '../assets/svg/discord';
 import Image from 'material-ui-image';
+import Recent from './Recent';
+import Releases from '../assets/Releases';
+
+const data=Releases[0];
 
 const SampleArtworkBlur = (false)?ShikaBlur : FDBlur;
 
@@ -26,8 +32,10 @@ function styles(theme){
       parallax:{
         'justify-content': 'space-evenly',
         'align-items' : 'center',
+        
+        //'min-height':1000
         //'padding-bottom':50,
-        //'z-index':1000
+        //'z-index':1
         
       },
       root: {
@@ -115,17 +123,18 @@ class HighLight extends React.Component{
     //this.parallax = React.createRef();
 
     this.state={
-      trackData:{
-        title: 'Falling Down',
-        artist: 'Emplexx',
-        message: 'Emplexx delivers high quality 8-bar complextro straight out of 2010.',
-        soundcloud: 'emplexx',
-        scEmbed: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/323954507&color=%239c908c&inverse=true&auto_play=false&show_user=true',
-        youtube: '',
-        twitter:  'emplexx',
-        instagram: 'emplexxofficial',
-        artwork: SampleArtwork
-      },
+      // trackData:{
+      //   title: 'Falling Down',
+      //   artist: 'Emplexx',
+      //   message: 'Emplexx delivers high quality 8-bar complextro straight out of 2010.',
+      //   soundcloud: 'emplexx',
+      //   scEmbed: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/323954507&color=%239c908c&inverse=true&auto_play=false&show_user=true',
+      //   youtube: '',
+      //   twitter:  'emplexx',
+      //   instagram: 'emplexxofficial',
+      //   artwork: SampleArtwork
+      // },
+      trackData:{...data},
       screenDimensions:{
         width:0,
         height:0
@@ -139,6 +148,10 @@ class HighLight extends React.Component{
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
+    this.parallax.img.style.filter='brightness(100%)';
+    // this.parallax.img.style.background="linear-gradient(to bottom, rgba(255,0,0,0) 0%,rgba(255,0,0,0.65) 100%)"
+    // this.parallax.img.style.WebkitFilter='brightness(80%)';
+
   }
   
   componentWillUnmount() {
@@ -176,13 +189,17 @@ class HighLight extends React.Component{
     const {screenDimensions}= this.state;
     return (
       <Parallax 
-        bgImage={BackgroundImage} 
+        bgImage={BGORIG} 
         strength={this.parallaxEnabled()? screenDimensions.height*0.6:0} 
         className={classes.parallax} 
         disabled={!this.parallaxEnabled()}
         ref={(node) => { this.parallax = node; }}
+       
       >
       <div className={classes.root}>
+        <div className={classes.artwork}>
+          <Image color="black" src={trackData.artwork} style={{display:'inline'}}/>
+        </div>
         <div className={classes.card}>
             <Typography 
               color="inherit" 
@@ -258,11 +275,10 @@ class HighLight extends React.Component{
                 </Button>
             </div>
           </div>
-
-          <div className={classes.artwork}>
-            <Image color="black" src={trackData.artwork} style={{display:'inline'}}/>
-          </div>
+        
+          
         </div>
+        {/* <Recent /> */}
       </Parallax> 
     );
   }

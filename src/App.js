@@ -21,8 +21,6 @@ import ListItem from '@material-ui/core/ListItem';
 import 'typeface-roboto';
 
 
-
-
 import './App.css';
 
 class App extends Component {
@@ -33,9 +31,11 @@ class App extends Component {
           <CssBaseline/>
           {/*<Test theme={Theme} />*/}
           <Header />
-          <div style={{display: 'flex', 'flex-direction':'column', 'height': 2000}}>
+          <div style={{display: 'flex', 'flex-direction':'column',  'background-color':'#232935',
+}}>
             <Highlight/>
             <Recent />
+            {/* <Highlight/> */}
           </div>
         </Fragment>
       </MuiThemeProvider>

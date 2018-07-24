@@ -12,6 +12,11 @@ import SimpleList from '../components/listDemo';
 
 import Header from '../components/Header'
 import Highlight from '../components/Highlight'
+import ReleaseCard from '../components/ReleaseCard'
+
+import Releases from '../assets/Releases'
+
+const sampleRelease= Releases[0];
 
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
@@ -35,4 +40,5 @@ storiesOf('Navbar', module)
 
 
 storiesOf('Content', module)
-  .add('Highlight', ()=><Highlight/>);
+  .add('Highlight', ()=><Highlight/>)
+  .add('ReleaseCard', ()=><ReleaseCard release={sampleRelease} />);
